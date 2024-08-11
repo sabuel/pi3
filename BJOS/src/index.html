@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="/components/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1>Cadastro</h1>
+      <ul>
+        <li><a href="public/login.html">Entrar</a></li>
+        <li><a href="public/register.html">Cadastre-se</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="register">
+    <div class="container">
+      <h2>Cadastre-se como Vendedor</h2>
+      <form id="register-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="nome_loja">Nome da Loja:</label>
+        <input type="text" id="nome_loja" name="nome_loja" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Venda Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="components/scripts.js"></script>
+</body>
+</html>

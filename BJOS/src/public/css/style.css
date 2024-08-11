@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .container h1{
+    text-align: center;
+  }
+  
+
+  .navbar {
+    background-color: #FF2D55;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .search-form {
+    flex-grow: 1;
+  }
+  
+  .search-form input {
+    width: 78%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+  
+  .search-form button {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #FF2D55;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .navbar ul li {
+    margin-right: 20px;
+  }
+  
+  .navbar ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+
+  .banner {
+    background-color: #FF2D55;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .banner h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .featured-products {
+    padding: 40px 0;
+  }
+  
+  .featured-products h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .product {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product img {
+    width: 25%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .product h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .product p {
+    color: #666;
+  }
+  
+  .product button {
+    padding: 10px 20px;
+    background-color: #FF2D55;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
