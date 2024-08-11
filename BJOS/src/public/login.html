@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - BJOS</title>
+  <link rel="stylesheet" href="../components/styles.css">
+  <style>
+    .form-container {
+      background-color: #f9f9f9;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 40px auto;
+      box-sizing: border-box;
+    }
+
+    .form-container h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-container button {
+      padding: 12px 20px;
+      background-color: #FF2D55;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .form-container button:hover {
+      background-color: #e6003a;
+    }
+
+    .message {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1>BJOS</h1>
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="#">Categorias</a></li>
+        <li><a href="#">Sobre</a></li>
+        <li><a href="#">Contato</a></li>
+        <li><a href="login.html">Entrar</a></li>
+        <li><a href="register.html">Cadastre-se</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="form-container">
+    <h2>Login</h2>
+    <div id="message" class="message" style="display: none;"></div>
+    <form id="login-form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Venda Online. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const messageElement = document.getElementById('message');
+
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, senha: password }) 
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          messageElement.textContent = result.message || 'Login realizado com sucesso!';
+          messageElement.className = 'message success';
+          localStorage.setItem('token', result.token);
+          setTimeout(() => window.location.href = result.redirectUrl, 1500);
+        } else {
+          messageElement.textContent = result.message || 'Erro ao realizar login.';
+          messageElement.className = 'message error';
+        }
+        messageElement.style.display = 'block';
+      } catch (error) {
+        console.error('Error:', error);
+        messageElement.textContent = 'Ocorreu um erro ao processar sua solicitação.';
+        messageElement.className = 'message error';
+        messageElement.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

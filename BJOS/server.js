@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = 3000;
@@ -55,6 +56,52 @@ app.post('/register', async (req, res) => {
     console.error('Erro ao processar a solicitação:', error.message);
     res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação.' });
   }
+});
+
+app.post('/login', async (req, res) => {
+  const { email, senha } = req.body;
+
+  const query = `SELECT * FROM vendedores WHERE email = ?`;
+  const params = [email];
+
+  db.get(query, params, async (err, vendedor) => {
+    if (err) {
+      return res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+    if (!vendedor) {
+      return res.status(401).json({ error: 'Vendedor não encontrado.' });
+    }
+
+    const match = await bcrypt.compare(senha, vendedor.senha);
+    if (!match) {
+      return res.status(401).json({ error: 'Senha incorreta.' });
+    }
+
+    const token = jwt.sign({ id: vendedor.id, role: 'vendedor' }, 'secretkey', { expiresIn: '1h' });
+
+    res.json({
+      token,
+      message: 'Login realizado com sucesso!',
+      redirectUrl: '/admin'
+    });
+  });
+});
+
+app.get('/admin', (req, res) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({ error: 'Token não fornecido.' });
+  }
+
+  const tokenWithPrefix = token.startsWith('Bearer ') ? token.slice(7) : token;
+
+  jwt.verify(tokenWithPrefix, 'secretkey', (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: 'Token inválido.' });
+    }
+
+    res.send(`<h1>Bem-vindo, ${decoded.role}!</h1><a href="/">Voltar para a página inicial</a>`);
+  });
 });
 
 app.listen(port, () => {
